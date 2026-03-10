@@ -4,7 +4,7 @@ from typing import Optional
 
 import numpy as np
 import pandas as pd
-import yfinance as yf
+# import yfinance as yf
 
 
 def resolve_event_date(ev: dict, phase: str) -> Optional[str]:
@@ -24,53 +24,45 @@ def enrich_event(ev: dict) -> dict:
     return enriched
 
 
-def fetch_price_series(ticker: str, start: str, end: str) -> pd.Series:
-    import time
-    import requests
+def fetch_price_series(ticker: str, start: str, end: str):
+    import pandas as pd
+    from pandas_datareader import data as pdr
 
-    session = requests.Session()
-    session.headers.update({
-        "User-Agent": (
-            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/120.0.0.0 Safari/537.36"
-        ),
-        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.5",
-        "Accept-Encoding": "gzip, deflate, br",
-        "Connection": "keep-alive",
-    })
+    # Stooq uses different symbols for indices and futures
+    STOOQ_MAP = {
+        "^GSPC":    "^SPX",
+        "^NDX":     "^NDX",
+        "^DJI":     "^DJI",
+        "^RUT":     "^RUT",
+        "^FTSE":    "^FTM",
+        "^N225":    "^NKX",
+        "GC=F":     "GC.F",
+        "CL=F":     "CL.F",
+        "SI=F":     "SI.F",
+        "EURUSD=X": "EUR/USD",
+        "GBPUSD=X": "GBP/USD",
+        "JPY=X":    "USD/JPY",
+    }
 
-    last_error = None
-    for attempt in range(3):
-        try:
-            if attempt > 0:
-                time.sleep(2 * attempt)
+    stooq_ticker = STOOQ_MAP.get(ticker, ticker)
 
-            ticker_obj = yf.Ticker(ticker, session=session)
-            df = ticker_obj.history(start=start, end=end, auto_adjust=True)
+    try:
+        df = pdr.DataReader(stooq_ticker, "stooq", start=start, end=end)
+    except Exception as e:
+        raise ValueError(f"Could not fetch data for {ticker}: {str(e)}")
 
-            if df is None or df.empty:
-                raise ValueError(f"No data returned for {ticker}")
+    if df is None or df.empty:
+        raise ValueError(f"No data returned for {ticker}")
 
-            series = df["Close"]
-            if isinstance(series, pd.DataFrame):
-                series = series.squeeze()
-            series.index = pd.to_datetime(series.index).normalize()
-            series = series.dropna()
+    df = df.sort_index()
+    series = df["Close"]
+    series.index = pd.to_datetime(series.index).normalize()
+    series = series.dropna()
 
-            if series.empty:
-                raise ValueError(f"Empty price series for {ticker}")
+    if series.empty:
+        raise ValueError(f"Empty price series for {ticker} after cleaning")
 
-            return series
-
-        except Exception as e:
-            last_error = e
-            if "rate" in str(e).lower() or "429" in str(e) or "too many" in str(e).lower():
-                continue
-            raise
-
-    raise ValueError(f"Rate limited after 3 attempts for {ticker}: {last_error}")
+    return series
 
 
 def compute_event_window(

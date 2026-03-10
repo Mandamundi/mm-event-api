@@ -23,7 +23,6 @@ DEFAULT_ASSETS = [
     {"ticker": "GC=F",   "label": "Gold",               "category": "Commodity"},
     {"ticker": "CL=F",   "label": "Crude Oil (WTI)",    "category": "Commodity"},
     {"ticker": "SI=F",   "label": "Silver",             "category": "Commodity"},
-    {"ticker": "^VIX",   "label": "VIX",                "category": "Volatility"},
     {"ticker": "DX-Y.NYB","label": "US Dollar Index",  "category": "FX"},
     {"ticker": "EURUSD=X","label": "EUR/USD",           "category": "FX"},
     {"ticker": "JPY=X",  "label": "USD/JPY",            "category": "FX"},
