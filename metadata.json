@@ -1,0 +1,5 @@
+{
+  "name": "Market Event Analysis API",
+  "description": "A FastAPI server for analyzing market events and their impact on asset prices.",
+  "requestFramePermissions": []
+}

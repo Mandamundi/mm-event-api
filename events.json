@@ -1,0 +1,117 @@
+{
+  "event_types": [
+    {
+      "id": "global_wars",
+      "label": "Global Wars",
+      "has_phases": true,
+      "phase_labels": { "start": "Outbreak", "end": "Resolution" },
+      "events": [
+        { "id": "ww2", "label": "World War II", "start_date": "1939-09-01", "end_date": "1945-05-08", "notes": "Germany invades Poland / Victory in Europe" },
+        { "id": "suez_crisis", "label": "Suez Crisis", "start_date": "1956-10-29", "end_date": "1957-03-01", "notes": "Israel invades Sinai; UK/France intervene / UN resolution, troop withdrawal" },
+        { "id": "cuban_missile_crisis", "label": "Cuban Missile Crisis", "start_date": "1962-10-16", "end_date": "1962-10-28", "notes": "Kennedy briefed on Soviet missiles / Khrushchev agrees to withdraw missiles" },
+        { "id": "six_day_war", "label": "Six-Day War", "start_date": "1967-06-05", "end_date": "1967-06-10", "notes": "Pre-emptive Israeli strike / Ceasefire; major territorial shifts" },
+        { "id": "vietnam_war", "label": "Vietnam War (US)", "start_date": "1965-03-08", "end_date": "1975-04-30", "notes": "First US combat troops land / Fall of Saigon" },
+        { "id": "yom_kippur", "label": "Yom Kippur War", "start_date": "1973-10-06", "end_date": "1973-10-25", "notes": "Egypt/Syria attack Israel; Oil Embargo begins / Ceasefire ends active hostilities" },
+        { "id": "iranian_revolution", "label": "Iranian Revolution", "start_date": "1978-01-07", "end_date": "1979-02-11", "notes": "Start of major anti-Shah protests / Pahlavi dynasty falls" },
+        { "id": "iran_iraq_war", "label": "Iran-Iraq War", "start_date": "1980-09-22", "end_date": "1988-08-20", "notes": "Iraq invades Iran / UN-brokered ceasefire takes effect" },
+        { "id": "gulf_war", "label": "Gulf War", "start_date": "1990-08-02", "end_date": "1991-02-28", "notes": "Iraq invades Kuwait / Coalition victory; ceasefire declared" },
+        { "id": "first_chechen_war", "label": "First Chechen War", "start_date": "1994-12-11", "end_date": "1996-08-31", "notes": "Russian troops enter Chechnya / Khasavyurt Accord signed" },
+        { "id": "second_chechen_war", "label": "Second Chechen War", "start_date": "1999-08-26", "end_date": "2000-05-08", "notes": "Russia begins air campaign / End of major combat" },
+        { "id": "911_attacks", "label": "9/11 Attacks", "start_date": "2001-09-11", "end_date": null, "notes": "World Trade Center and Pentagon attacked / No formal end date" },
+        { "id": "afghanistan_war", "label": "Afghanistan War (US)", "start_date": "2001-10-07", "end_date": "2021-08-30", "notes": "US-led invasion begins / Final US troop withdrawal from Kabul" },
+        { "id": "iraq_war", "label": "Iraq War (US)", "start_date": "2003-03-20", "end_date": "2011-12-18", "notes": "US-led invasion / Last US troops cross border to Kuwait" },
+        { "id": "russo_georgian_war", "label": "Russo-Georgian War", "start_date": "2008-08-08", "end_date": "2008-08-12", "notes": "Conflict begins in South Ossetia / EU-brokered ceasefire" },
+        { "id": "libyan_civil_war", "label": "Libyan Civil War", "start_date": "2011-02-15", "end_date": "2011-10-20", "notes": "Uprising against Gaddafi begins / Gaddafi killed; NTC declares victory" },
+        { "id": "russia_ukraine", "label": "Russia-Ukraine War", "start_date": "2022-02-24", "end_date": null, "notes": "Full-scale Russian invasion / Ongoing" },
+        { "id": "israel_hamas", "label": "Israel-Hamas War", "start_date": "2023-10-07", "end_date": null, "notes": "Hamas attack on Israel / Ongoing" },
+        { "id": "israel_iran_2024", "label": "Israel-Iran Direct Strike", "start_date": "2024-04-13", "end_date": null, "notes": "Iran launches first-ever direct drone/missile strike on Israel / No formal end" }
+      ]
+    },
+    {
+      "id": "financial_crises",
+      "label": "Financial Crises",
+      "has_phases": true,
+      "phase_labels": { "start": "Shock", "end": "Trough / Resolution" },
+      "events": [
+        { "id": "black_monday", "label": "Black Monday", "start_date": "1987-10-19", "end_date": null, "notes": "Largest single-day % drop in DJIA history / No single recovery date" },
+        { "id": "asian_crisis", "label": "Asian Financial Crisis", "start_date": "1997-07-02", "end_date": "1998-12-31", "notes": "Thai baht collapse / Most markets stabilised by end of 1998" },
+        { "id": "ltcm", "label": "LTCM / Russia Default", "start_date": "1998-08-17", "end_date": "1998-10-15", "notes": "Russian default / Fed-coordinated LTCM bailout complete" },
+        { "id": "dotcom", "label": "Dot-com Bubble", "start_date": "2000-03-10", "end_date": "2002-10-09", "notes": "Nasdaq peak / Nasdaq trough" },
+        { "id": "gfc", "label": "Global Financial Crisis", "start_date": "2008-09-15", "end_date": "2009-03-09", "notes": "Lehman Brothers collapse / S&P 500 trough" },
+        { "id": "eu_debt_crisis", "label": "EU Sovereign Debt Crisis", "start_date": "2011-08-05", "end_date": "2012-07-26", "notes": "S&P downgrades US; EU contagion peaks / Draghi 'whatever it takes' speech" },
+        { "id": "covid_crash", "label": "COVID Market Crash", "start_date": "2020-02-19", "end_date": "2020-03-23", "notes": "S&P 500 pre-COVID peak / S&P 500 trough" },
+        { "id": "svb_collapse", "label": "SVB / Regional Bank Crisis", "start_date": "2023-03-10", "end_date": "2023-05-01", "notes": "SVB failure / First Republic acquired; contagion contained" }
+      ]
+    },
+    {
+      "id": "fed_hikes",
+      "label": "Fed Rate Hike Cycles",
+      "has_phases": true,
+      "phase_labels": { "start": "First Hike", "end": "Last Hike" },
+      "events": [
+        { "id": "hike_cycle_1994", "label": "1994–1995 Cycle", "start_date": "1994-02-04", "end_date": "1995-02-01", "notes": "First hike / Last hike; 300bps total over 12 months" },
+        { "id": "hike_cycle_1999", "label": "1999–2000 Cycle", "start_date": "1999-06-30", "end_date": "2000-05-16", "notes": "First hike / Last hike; 175bps total" },
+        { "id": "hike_cycle_2004", "label": "2004–2006 Cycle", "start_date": "2004-06-30", "end_date": "2006-06-29", "notes": "First hike / Last hike; 425bps over 2 years" },
+        { "id": "hike_cycle_2015", "label": "2015–2018 Cycle", "start_date": "2015-12-16", "end_date": "2018-12-19", "notes": "First hike / Last hike; 225bps over 3 years" },
+        { "id": "hike_cycle_2022", "label": "2022–2023 Cycle", "start_date": "2022-03-16", "end_date": "2023-07-26", "notes": "First hike / Last hike; 525bps; fastest cycle in 40 years" }
+      ]
+    },
+    {
+      "id": "fed_cuts",
+      "label": "Fed Rate Cut Cycles",
+      "has_phases": true,
+      "phase_labels": { "start": "First Cut", "end": "Last Cut" },
+      "events": [
+        { "id": "cut_cycle_1995", "label": "1995 Cycle", "start_date": "1995-07-06", "end_date": "1996-01-31", "notes": "First cut / Last cut; 75bps; mid-cycle insurance" },
+        { "id": "cut_cycle_1998", "label": "1998 Emergency Cuts", "start_date": "1998-09-29", "end_date": "1998-11-17", "notes": "First cut / Last cut; 75bps post-LTCM" },
+        { "id": "cut_cycle_2001", "label": "2001–2003 Cycle", "start_date": "2001-01-03", "end_date": "2003-06-25", "notes": "First cut / Last cut; 550bps post dot-com" },
+        { "id": "cut_cycle_2007", "label": "2007–2008 Cycle", "start_date": "2007-09-18", "end_date": "2008-12-16", "notes": "First cut / Last cut; 525bps GFC response" },
+        { "id": "cut_cycle_2019", "label": "2019 Cycle", "start_date": "2019-07-31", "end_date": "2019-10-30", "notes": "First cut / Last cut; 75bps insurance cuts" },
+        { "id": "cut_cycle_2020", "label": "2020 Emergency Cuts", "start_date": "2020-03-03", "end_date": "2020-03-15", "notes": "First emergency cut / Zero rate achieved; COVID response" },
+        { "id": "cut_cycle_2024", "label": "2024– Cycle", "start_date": "2024-09-18", "end_date": null, "notes": "First cut of post-COVID normalisation / Ongoing" }
+      ]
+    },
+    {
+      "id": "us_govt_shutdowns",
+      "label": "US Government Shutdowns",
+      "has_phases": true,
+      "phase_labels": { "start": "Start", "end": "End" },
+      "events": [
+        { "id": "shutdown_1981_11", "label": "Nov 1981", "start_date": "1981-11-20", "end_date": "1981-11-22", "notes": "Reagan era" },
+        { "id": "shutdown_1982_09", "label": "Sep 1982", "start_date": "1982-09-30", "end_date": "1982-10-01", "notes": "Reagan era" },
+        { "id": "shutdown_1984_10", "label": "Oct 1984", "start_date": "1984-10-03", "end_date": "1984-10-05", "notes": "Reagan era" },
+        { "id": "shutdown_1986_10", "label": "Oct 1986", "start_date": "1986-10-16", "end_date": "1986-10-17", "notes": "" },
+        { "id": "shutdown_1987_12", "label": "Dec 1987", "start_date": "1987-12-18", "end_date": "1987-12-19", "notes": "" },
+        { "id": "shutdown_1995_11", "label": "Nov 1995", "start_date": "1995-11-13", "end_date": "1995-11-19", "notes": "Clinton-Gingrich" },
+        { "id": "shutdown_1995_12", "label": "Dec 1995–Jan 1996", "start_date": "1995-12-15", "end_date": "1996-01-06", "notes": "Clinton-Gingrich" },
+        { "id": "shutdown_2013_10", "label": "Oct 2013", "start_date": "2013-10-01", "end_date": "2013-10-17", "notes": "ACA standoff" },
+        { "id": "shutdown_2018_01", "label": "Jan 2018", "start_date": "2018-01-19", "end_date": "2018-01-22", "notes": "" },
+        { "id": "shutdown_2018_12", "label": "Dec 2018–Jan 2019", "start_date": "2018-12-22", "end_date": "2019-01-25", "notes": "Border wall; longest until 2025" },
+        { "id": "shutdown_2025_10", "label": "Oct–Nov 2025", "start_date": "2025-10-01", "end_date": "2025-11-13", "notes": "Record length; Trump 2nd term" },
+        { "id": "shutdown_2026_01", "label": "Jan–Feb 2026", "start_date": "2026-01-31", "end_date": "2026-02-04", "notes": "Immigration reform dispute" },
+        { "id": "shutdown_2026_02", "label": "Feb 2026 DHS Partial", "start_date": "2026-02-14", "end_date": null, "notes": "DHS-only partial; ongoing" }
+      ]
+    },
+    {
+      "id": "us_inaugurations",
+      "label": "US Presidential Inaugurations",
+      "has_phases": false,
+      "events": [
+        { "id": "inaug_nixon_1969",   "label": "Nixon",           "start_date": "1969-01-20", "end_date": null, "notes": "37th President" },
+        { "id": "inaug_carter_1977",  "label": "Carter",          "start_date": "1977-01-20", "end_date": null, "notes": "39th President" },
+        { "id": "inaug_reagan_1981",  "label": "Reagan",          "start_date": "1981-01-20", "end_date": null, "notes": "40th President" },
+        { "id": "inaug_reagan_1985",  "label": "Reagan (2nd)",    "start_date": "1985-01-21", "end_date": null, "notes": "40th President, 2nd term" },
+        { "id": "inaug_bush_1989",    "label": "H.W. Bush",       "start_date": "1989-01-20", "end_date": null, "notes": "41st President" },
+        { "id": "inaug_clinton_1993", "label": "Clinton",         "start_date": "1993-01-20", "end_date": null, "notes": "42nd President" },
+        { "id": "inaug_clinton_1997", "label": "Clinton (2nd)",   "start_date": "1997-01-20", "end_date": null, "notes": "42nd President, 2nd term" },
+        { "id": "inaug_bush_2001",    "label": "G.W. Bush",       "start_date": "2001-01-20", "end_date": null, "notes": "43rd President" },
+        { "id": "inaug_bush_2005",    "label": "G.W. Bush (2nd)", "start_date": "2005-01-20", "end_date": null, "notes": "43rd President, 2nd term" },
+        { "id": "inaug_obama_2009",   "label": "Obama",           "start_date": "2009-01-20", "end_date": null, "notes": "44th President" },
+        { "id": "inaug_obama_2013",   "label": "Obama (2nd)",     "start_date": "2013-01-21", "end_date": null, "notes": "44th President, 2nd term" },
+        { "id": "inaug_trump_2017",   "label": "Trump",           "start_date": "2017-01-20", "end_date": null, "notes": "45th President" },
+        { "id": "inaug_biden_2021",   "label": "Biden",           "start_date": "2021-01-20", "end_date": null, "notes": "46th President" },
+        { "id": "inaug_trump_2025",   "label": "Trump (2nd)",     "start_date": "2025-01-20", "end_date": null, "notes": "47th President" }
+      ]
+    }
+  ]
+}
