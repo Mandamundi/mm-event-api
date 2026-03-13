@@ -7,26 +7,25 @@ EVENTS_PATH = Path(__file__).parent / "events.json"
 DEFAULT_ASSETS = [
     # Equity Indices
     {"ticker": "^SPX",     "label": "S&P 500",              "category": "Equity Index"},
-    {"ticker": "VI.F",     "label": "S&P 500 VIX - CBOE",        "category": "Equity Index"},
+    {"ticker": "VI.F",     "label": "CBOE S&P 500 VIX",        "category": "Equity Index"},
     {"ticker": "^NDX",     "label": "Nasdaq 100",           "category": "Equity Index"},
     {"ticker": "^DJI",     "label": "Dow Jones",            "category": "Equity Index"},
     {"ticker": "QR.F",     "label": "Russell 2000",         "category": "Equity Index"},
     {"ticker": "^NKX",     "label": "Nikkei 225",           "category": "Equity Index"},
     {"ticker": "^KOSPI",     "label": "KOSPI Index",        "category": "Equity Index"},
     # Sector ETFs
-    {"ticker": "XLE.US",      "label": "Energy (XLE)",         "category": "Sector ETF"},
-    {"ticker": "XLF.US",      "label": "Financials (XLF)",     "category": "Sector ETF"},
-    {"ticker": "XLK.US",      "label": "Technology (XLK)",     "category": "Sector ETF"},
-    {"ticker": "XLV.US",      "label": "Healthcare (XLV)",     "category": "Sector ETF"},
-    {"ticker": "XLU.US",      "label": "Utilities (XLU)",      "category": "Sector ETF"},
-    {"ticker": "XLI.US",      "label": "Industrials (XLI)",    "category": "Sector ETF"},
+    {"ticker": "XLE.US",      "label": "Energy",         "category": "Sector ETF"},
+    {"ticker": "XLF.US",      "label": "Financials",     "category": "Sector ETF"},
+    {"ticker": "XLK.US",      "label": "Technology",     "category": "Sector ETF"},
+    {"ticker": "XLV.US",      "label": "Healthcare",     "category": "Sector ETF"},
+    {"ticker": "XLU.US",      "label": "Utilities",      "category": "Sector ETF"},
+    {"ticker": "XLI.US",      "label": "Industrials",    "category": "Sector ETF"},
     # Fixed Income
     {"ticker": "10YUSY.B",      "label": "10-Year Government Bond Yield",   "category": "Fixed Income"},
-    {"ticker": "HYG.US",      "label": "High Yield Corp (HYG)","category": "Fixed Income"},
-    {"ticker": "HYG.US",      "label": "High Yield Corp (HYG)","category": "Fixed Income"},
+    {"ticker": "HYG.US",      "label": "High Yield Corp","category": "Fixed Income"},
     # Commodities
     {"ticker": "GC.F",     "label": "Gold",                 "category": "Commodity"},
-    {"ticker": "CL.F",     "label": "Crude Oil (WTI)",      "category": "Commodity"},
+    {"ticker": "CL.F",     "label": "WTI Crude Oil",      "category": "Commodity"},
     {"ticker": "SC.F",     "label": "Crude Oil Brent",      "category": "Commodity"},
     {"ticker": "SI.F",     "label": "Silver",               "category": "Commodity"},
     # FX
