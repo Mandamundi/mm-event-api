@@ -7,6 +7,7 @@
       "phase_labels": { "start": "Outbreak", "end": "Resolution" },
       "events": [
         { "id": "ww2", "label": "World War II", "start_date": "1939-09-01", "end_date": "1945-05-08", "notes": "Germany invades Poland / Victory in Europe" },
+        { "id": "korean_war", "label": "Korean War", "start_date": "1950-06-25", "end_date": "1953-07-27", "notes": "North Korea invades South; UN/US intervention / Armistice signed; no peace treaty" },
         { "id": "suez_crisis", "label": "Suez Crisis", "start_date": "1956-10-29", "end_date": "1957-03-01", "notes": "Israel invades Sinai; UK/France intervene / UN resolution, troop withdrawal" },
         { "id": "cuban_missile_crisis", "label": "Cuban Missile Crisis", "start_date": "1962-10-16", "end_date": "1962-10-28", "notes": "Kennedy briefed on Soviet missiles / Khrushchev agrees to withdraw missiles" },
         { "id": "six_day_war", "label": "Six-Day War", "start_date": "1967-06-05", "end_date": "1967-06-10", "notes": "Pre-emptive Israeli strike / Ceasefire; major territorial shifts" },
@@ -28,10 +29,47 @@
       ]
     },
     {
+      "id": "us_iran_conflict",
+      "label": "US-Iran Conflict (2025–2026)",
+      "description": "Escalation involving Israel, US, and Iran, including 2025 12-Day War and 2026 regime-change strikes; major oil supply risks via Strait of Hormuz disruptions.",
+      "has_phases": true,
+      "phase_labels": { "start": "Outbreak", "end": "Resolution" },
+      "events": [
+        {
+          "id": "iran_israel_12day_2025",
+          "label": "Israel-Iran 12-Day War",
+          "start_date": "2025-06-13",
+          "end_date": "2025-06-24",
+          "notes": "Israel launches strikes on Iranian nuclear/military sites; US intervenes targeting Natanz/Fordow/Isfahan; ceasefire brokered; degraded Iran's nuclear program temporarily."
+        },
+        {
+          "id": "us_israel_strikes_iran_2026",
+          "label": "Operation Epic Fury",
+          "start_date": "2026-02-28",
+          "end_date": null,
+          "notes": "Joint strikes begin; Supreme Leader Khamenei killed in opening wave; targets include nuclear sites, missiles, leadership; Iran retaliates with missiles/drones across region; ongoing as of March 2026."
+        },
+        {
+          "id": "iea_emergency_release_2026",
+          "label": "IEA Record Emergency Oil Release",
+          "start_date": "2026-03-11",
+          "end_date": null,
+          "notes": "Unprecedented 400M barrels coordinated release (largest ever) to counter supply shock; US contributes 172M from SPR; aimed at cooling prices amid Hormuz disruptions."
+        },
+        {
+          "id": "us_spr_release_2026",
+          "label": "US SPR Release Announcement",
+          "start_date": "2026-03-11",
+          "end_date": null,
+          "notes": "US authorizes 172M barrels from Strategic Petroleum Reserve (part of IEA effort); begins next week; ~120-day delivery; intended to offset Gulf supply losses and stabilize energy markets."
+        }
+      ]
+    },
+    {
       "id": "financial_crises",
       "label": "Financial Crises",
       "has_phases": true,
-      "phase_labels": { "start": "Shock", "end": "Trough / Resolution" },
+      "phase_labels": { "start": "Shock", "end": "Resolution" },
       "events": [
         { "id": "black_monday", "label": "Black Monday", "start_date": "1987-10-19", "end_date": null, "notes": "Largest single-day % drop in DJIA history / No single recovery date" },
         { "id": "asian_crisis", "label": "Asian Financial Crisis", "start_date": "1997-07-02", "end_date": "1998-12-31", "notes": "Thai baht collapse / Most markets stabilised by end of 1998" },
@@ -87,7 +125,7 @@
         { "id": "shutdown_2013_10", "label": "Oct 2013", "start_date": "2013-10-01", "end_date": "2013-10-17", "notes": "ACA standoff" },
         { "id": "shutdown_2018_01", "label": "Jan 2018", "start_date": "2018-01-19", "end_date": "2018-01-22", "notes": "" },
         { "id": "shutdown_2018_12", "label": "Dec 2018–Jan 2019", "start_date": "2018-12-22", "end_date": "2019-01-25", "notes": "Border wall; longest until 2025" },
-        { "id": "shutdown_2025_10", "label": "Oct–Nov 2025", "start_date": "2025-10-01", "end_date": "2025-11-13", "notes": "Record length; Trump 2nd term" },
+        { "id": "shutdown_2025_10", "label": "Oct–Nov 2025", "start_date": "2025-10-01", "end_date": "2025-11-12", "notes": "Record length; Trump 2nd term" },
         { "id": "shutdown_2026_01", "label": "Jan–Feb 2026", "start_date": "2026-01-31", "end_date": "2026-02-04", "notes": "Immigration reform dispute" },
         { "id": "shutdown_2026_02", "label": "Feb 2026 DHS Partial", "start_date": "2026-02-14", "end_date": null, "notes": "DHS-only partial; ongoing" }
       ]

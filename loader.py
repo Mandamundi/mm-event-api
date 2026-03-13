@@ -5,32 +5,46 @@ from typing import Optional
 EVENTS_PATH = Path(__file__).parent / "events.json"
 
 DEFAULT_ASSETS = [
-    {"ticker": "^GSPC",  "label": "S&P 500",           "category": "Equity Index"},
-    {"ticker": "^NDX",   "label": "Nasdaq 100",         "category": "Equity Index"},
-    {"ticker": "^DJI",   "label": "Dow Jones",          "category": "Equity Index"},
-    {"ticker": "^RUT",   "label": "Russell 2000",       "category": "Equity Index"},
-    {"ticker": "^FTSE",  "label": "FTSE 100",           "category": "Equity Index"},
-    {"ticker": "^N225",  "label": "Nikkei 225",         "category": "Equity Index"},
-    {"ticker": "XLE",    "label": "Energy (XLE)",       "category": "Sector ETF"},
-    {"ticker": "XLF",    "label": "Financials (XLF)",   "category": "Sector ETF"},
-    {"ticker": "XLK",    "label": "Technology (XLK)",   "category": "Sector ETF"},
-    {"ticker": "XLV",    "label": "Healthcare (XLV)",   "category": "Sector ETF"},
-    {"ticker": "XLU",    "label": "Utilities (XLU)",    "category": "Sector ETF"},
-    {"ticker": "XLI",    "label": "Industrials (XLI)",  "category": "Sector ETF"},
-    {"ticker": "TLT",    "label": "20Y Treasury (TLT)", "category": "Fixed Income"},
-    {"ticker": "IEF",    "label": "7-10Y Treasury (IEF)","category": "Fixed Income"},
-    {"ticker": "HYG",    "label": "High Yield Corp (HYG)","category": "Fixed Income"},
-    {"ticker": "GC=F",   "label": "Gold",               "category": "Commodity"},
-    {"ticker": "CL=F",   "label": "Crude Oil (WTI)",    "category": "Commodity"},
-    {"ticker": "SI=F",   "label": "Silver",             "category": "Commodity"},
-    {"ticker": "DX-Y.NYB","label": "US Dollar Index",  "category": "FX"},
-    {"ticker": "EURUSD=X","label": "EUR/USD",           "category": "FX"},
-    {"ticker": "JPY=X",  "label": "USD/JPY",            "category": "FX"},
-    {"ticker": "AAPL",   "label": "Apple",              "category": "Stock"},
-    {"ticker": "MSFT",   "label": "Microsoft",          "category": "Stock"},
-    {"ticker": "NVDA",   "label": "Nvidia",             "category": "Stock"},
-    {"ticker": "XOM",    "label": "ExxonMobil",         "category": "Stock"},
-    {"ticker": "JPM",    "label": "JPMorgan Chase",     "category": "Stock"},
+    # Equity Indices
+    {"ticker": "^SPX",     "label": "S&P 500",              "category": "Equity Index"},
+    {"ticker": "VI.F",     "label": "S&P 500 VIX - CBOE",        "category": "Equity Index"},
+    {"ticker": "^NDX",     "label": "Nasdaq 100",           "category": "Equity Index"},
+    {"ticker": "^DJI",     "label": "Dow Jones",            "category": "Equity Index"},
+    {"ticker": "QR.F",     "label": "Russell 2000",         "category": "Equity Index"},
+    {"ticker": "^NKX",     "label": "Nikkei 225",           "category": "Equity Index"},
+    {"ticker": "^KOSPI",     "label": "KOSPI Index",        "category": "Equity Index"},
+    # Sector ETFs
+    {"ticker": "XLE.US",      "label": "Energy (XLE)",         "category": "Sector ETF"},
+    {"ticker": "XLF.US",      "label": "Financials (XLF)",     "category": "Sector ETF"},
+    {"ticker": "XLK.US",      "label": "Technology (XLK)",     "category": "Sector ETF"},
+    {"ticker": "XLV.US",      "label": "Healthcare (XLV)",     "category": "Sector ETF"},
+    {"ticker": "XLU.US",      "label": "Utilities (XLU)",      "category": "Sector ETF"},
+    {"ticker": "XLI.US",      "label": "Industrials (XLI)",    "category": "Sector ETF"},
+    # Fixed Income
+    {"ticker": "10YUSY.B",      "label": "10-Year Government Bond Yield",   "category": "Fixed Income"},
+    {"ticker": "HYG.US",      "label": "High Yield Corp (HYG)","category": "Fixed Income"},
+    {"ticker": "HYG.US",      "label": "High Yield Corp (HYG)","category": "Fixed Income"},
+    # Commodities
+    {"ticker": "GC.F",     "label": "Gold",                 "category": "Commodity"},
+    {"ticker": "CL.F",     "label": "Crude Oil (WTI)",      "category": "Commodity"},
+    {"ticker": "SC.F",     "label": "Crude Oil Brent",      "category": "Commodity"},
+    {"ticker": "SI.F",     "label": "Silver",               "category": "Commodity"},
+    # FX
+    {"ticker": "DX.F",  "label": "US Dollar Index",        "category": "FX"},
+    {"ticker": "EURUSD",  "label": "EUR/USD",              "category": "FX"},
+    {"ticker": "JPYUSD",  "label": "USD/JPY",              "category": "FX"},
+    # Stocks
+    {"ticker": "AAPL.US",  "label": "Apple",                "category": "Stock"},
+    {"ticker": "MSFT.US",  "label": "Microsoft",            "category": "Stock"},
+    {"ticker": "NVDA.US",  "label": "Nvidia",               "category": "Stock"},
+    {"ticker": "GOOG.US",  "label": "Alphabet",             "category": "Stock"},
+    {"ticker": "TSLA.US",  "label": "Tesla",                "category": "Stock"},
+    {"ticker": "META.US",  "label": "Meta",                 "category": "Stock"},
+    {"ticker": "TSM.US",   "label": "TSMC",                 "category": "Stock"},
+    {"ticker": "PLTR.US",   "label": "Palantir",            "category": "Stock"},
+    # Crypto
+    {"ticker": "BTCUSD", "label": "Bitcoin",  "category": "Crypto"},
+    {"ticker": "ETH.V", "label": "Ethereum", "category": "Crypto"},
 ]
 
 def load_events() -> dict:
