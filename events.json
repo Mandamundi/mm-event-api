@@ -25,7 +25,8 @@
         { "id": "libyan_civil_war", "label": "Libyan Civil War", "start_date": "2011-02-15", "end_date": "2011-10-20", "notes": "Uprising against Gaddafi begins / Gaddafi killed; NTC declares victory" },
         { "id": "russia_ukraine", "label": "Russia-Ukraine War", "start_date": "2022-02-24", "end_date": null, "notes": "Full-scale Russian invasion / Ongoing" },
         { "id": "israel_hamas", "label": "Israel-Hamas War", "start_date": "2023-10-07", "end_date": null, "notes": "Hamas attack on Israel / Ongoing" },
-        { "id": "israel_iran_2024", "label": "Israel-Iran Direct Strike", "start_date": "2024-04-13", "end_date": null, "notes": "Iran launches first-ever direct drone/missile strike on Israel / No formal end" }
+        { "id": "israel_iran_2024", "label": "Israel-Iran Direct Strike", "start_date": "2024-04-13", "end_date": null, "notes": "Iran launches first-ever direct drone/missile strike on Israel / No formal end" },
+        { "id": "us_iran_2026", "label": "Operation Epic Fury", "start_date": "2024-02-28", "end_date": null, "notes": "Joint strikes begin; Supreme Leader Khamenei killed in opening wave; targets include nuclear sites, missiles, leadership; Iran retaliates with missiles/drones across region; ongoing as of March 2026." }
       ]
     },
     {
