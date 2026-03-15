@@ -23,24 +23,74 @@ def enrich_event(ev: dict) -> dict:
     return enriched
 
 
-def fetch_price_series(ticker: str, start: str, end: str):
+def fetch_price_series(ticker: str, start: str, end: str) -> pd.Series:
     import time
-    import pandas as pd
-    from pandas_datareader import data as pdr
+    import hashlib
+    import requests
+    from pathlib import Path
+
+    CACHE_DIR = Path("/tmp/price_cache")
+    CACHE_DIR.mkdir(exist_ok=True)
+
+    start_dt = pd.Timestamp(start)
+    end_dt   = pd.Timestamp(end)
+
+    # Each ticker gets one cache file covering all data ever fetched for it
+    cache_file = CACHE_DIR / f"{hashlib.md5(ticker.encode()).hexdigest()}.parquet"
+
+    cached_series = None
+
+    # Load existing cache if present
+    if cache_file.exists():
+        try:
+            cached_series = pd.read_parquet(cache_file).squeeze()
+            cached_series.index = pd.to_datetime(cached_series.index).normalize()
+            cached_series = cached_series.dropna()
+
+            # Check if cache already covers the full requested range
+            if not cached_series.empty:
+                if cached_series.index[0] <= start_dt and cached_series.index[-1] >= end_dt:
+                    return cached_series.loc[start_dt:end_dt]
+        except Exception:
+            cached_series = None  # corrupt cache — will re-fetch
+
+    # Need to fetch — build the widest range possible so we cache as much as possible
+    # Always fetch from 1980 to today so we rarely need to re-fetch
+    fetch_start = "1980-01-01"
+    fetch_end   = pd.Timestamp.today().strftime("%Y-%m-%d")
+
+    import yfinance as yf
+
+    session = requests.Session()
+    session.headers.update({
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/120.0.0.0 Safari/537.36"
+        ),
+        "Accept-Language": "en-US,en;q=0.9",
+    })
 
     last_error = None
     for attempt in range(4):
         if attempt > 0:
-            time.sleep(1.5 * attempt)
+            time.sleep(3 * attempt)   # 3s, 6s, 9s — be patient with Yahoo
         try:
-            df = pdr.DataReader(ticker, "stooq", start=start, end=end)
+            ticker_obj = yf.Ticker(ticker, session=session)
+            df = ticker_obj.history(
+                start=fetch_start,
+                end=fetch_end,
+                auto_adjust=True,
+                timeout=30,
+            )
 
             if df is None or df.empty:
                 last_error = ValueError(f"No data returned for {ticker}")
-                continue   # Stooq sometimes returns empty on first hit, retry
+                continue
 
-            df = df.sort_index()
             series = df["Close"]
+            if isinstance(series, pd.DataFrame):
+                series = series.squeeze()
             series.index = pd.to_datetime(series.index).normalize()
             series = series.dropna()
 
@@ -48,16 +98,32 @@ def fetch_price_series(ticker: str, start: str, end: str):
                 last_error = ValueError(f"Empty series for {ticker}")
                 continue
 
-            return series
+            # Merge with any existing cache so we never lose data
+            if cached_series is not None and not cached_series.empty:
+                series = pd.concat([cached_series, series])
+                series = series[~series.index.duplicated(keep="last")]
+                series = series.sort_index()
+
+            # Save to cache
+            try:
+                series.to_frame("Close").to_parquet(cache_file)
+            except Exception:
+                pass  # cache write failure is non-fatal
+
+            return series.loc[start_dt:end_dt]
 
         except Exception as e:
             last_error = e
             err_str = str(e).lower()
-            if any(x in err_str for x in ["timeout", "connection", "remote", "read", "500", "503"]):
+            if any(x in err_str for x in ["rate", "429", "too many", "timeout", "connection"]):
                 continue
             raise ValueError(f"Could not fetch data for {ticker}: {e}")
 
-    raise ValueError(f"Failed to fetch {ticker} after 4 attempts. Last error: {last_error}")
+    raise ValueError(
+        f"Failed to fetch {ticker} after 4 attempts. "
+        f"Yahoo Finance may be rate limiting this server. "
+        f"Last error: {last_error}"
+    )
 
 
 def compute_event_window(

@@ -82,7 +82,8 @@ def run_analysis(req: AnalysisRequest):
     price_data = {}
     for ticker in tickers_needed:
         try:
-            price_data[ticker] = compute.fetch_price_series(ticker, start_date, end_date)
+            fh_ticker = loader.get_finnhub_ticker(ticker)
+            price_data[ticker] = compute.fetch_price_series(fh_ticker, start_date, end_date)
         except Exception as e:
             raise HTTPException(status_code=502, detail=f"Failed to fetch data for {ticker}: {str(e)}")
 
