@@ -24,26 +24,40 @@ def enrich_event(ev: dict) -> dict:
 
 
 def fetch_price_series(ticker: str, start: str, end: str):
+    import time
     import pandas as pd
     from pandas_datareader import data as pdr
 
-    try:
-        df = pdr.DataReader(ticker, "stooq", start=start, end=end)
-    except Exception as e:
-        raise ValueError(f"Could not fetch data for {ticker}: {str(e)}")
+    last_error = None
+    for attempt in range(4):
+        if attempt > 0:
+            time.sleep(1.5 * attempt)
+        try:
+            df = pdr.DataReader(ticker, "stooq", start=start, end=end)
 
-    if df is None or df.empty:
-        raise ValueError(f"No data returned for {ticker}")
+            if df is None or df.empty:
+                last_error = ValueError(f"No data returned for {ticker}")
+                continue   # Stooq sometimes returns empty on first hit, retry
 
-    df = df.sort_index()
-    series = df["Close"]
-    series.index = pd.to_datetime(series.index).normalize()
-    series = series.dropna()
+            df = df.sort_index()
+            series = df["Close"]
+            series.index = pd.to_datetime(series.index).normalize()
+            series = series.dropna()
 
-    if series.empty:
-        raise ValueError(f"Empty price series for {ticker} after cleaning")
+            if series.empty:
+                last_error = ValueError(f"Empty series for {ticker}")
+                continue
 
-    return series
+            return series
+
+        except Exception as e:
+            last_error = e
+            err_str = str(e).lower()
+            if any(x in err_str for x in ["timeout", "connection", "remote", "read", "500", "503"]):
+                continue
+            raise ValueError(f"Could not fetch data for {ticker}: {e}")
+
+    raise ValueError(f"Failed to fetch {ticker} after 4 attempts. Last error: {last_error}")
 
 
 def compute_event_window(

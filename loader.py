@@ -42,7 +42,7 @@ DEFAULT_ASSETS = [
     {"ticker": "TSM.US",   "label": "TSMC",                 "category": "Stock"},
     {"ticker": "PLTR.US",   "label": "Palantir",            "category": "Stock"},
     # Crypto
-    {"ticker": "BTCUSD", "label": "Bitcoin",  "category": "Crypto"},
+    {"ticker": "BTC.V", "label": "Bitcoin",  "category": "Crypto"},
     {"ticker": "ETH.V", "label": "Ethereum", "category": "Crypto"},
 ]
 
