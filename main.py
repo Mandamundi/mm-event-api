@@ -19,6 +19,11 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# In-memory store for uploaded CSV price series
+# Keys are the custom ticker strings the frontend assigns (e.g. "custom_1234567890")
+custom_price_cache: dict[str, pd.Series] = {}
+
+
 @app.get("/health")
 def health_check():
     return {"status": "ok"}
@@ -34,6 +39,7 @@ def get_assets():
         grouped.setdefault(asset["category"], []).append(asset)
     return {"assets": loader.DEFAULT_ASSETS, "grouped": grouped}
 
+
 class AnalysisRequest(BaseModel):
     event_ids: list[str]
     ticker: str
@@ -42,6 +48,7 @@ class AnalysisRequest(BaseModel):
     post_days: int = 60
     benchmark_ticker: Optional[str] = None
     second_ticker: Optional[str] = None
+
 
 @app.post("/api/analysis")
 def run_analysis(req: AnalysisRequest):
@@ -81,10 +88,14 @@ def run_analysis(req: AnalysisRequest):
 
     price_data = {}
     for ticker in tickers_needed:
-        try:
-            price_data[ticker] = compute.fetch_price_series(ticker, start_date, end_date)
-        except Exception as e:
-            raise HTTPException(status_code=502, detail=f"Failed to fetch data for {ticker}: {str(e)}")
+        # Check in-memory custom cache first before hitting yfinance
+        if ticker in custom_price_cache:
+            price_data[ticker] = custom_price_cache[ticker]
+        else:
+            try:
+                price_data[ticker] = compute.fetch_price_series(ticker, start_date, end_date)
+            except Exception as e:
+                raise HTTPException(status_code=502, detail=f"Failed to fetch data for {ticker}: {str(e)}")
 
     def compute_series_for_ticker(ticker: str, use_excess: bool = False) -> dict:
         series = price_data[ticker]
@@ -215,8 +226,17 @@ async def validate_csv(file: UploadFile = File(...)):
             detail=f"Not enough valid rows after parsing (got {len(df)}, need at least 10)"
         )
 
+    # Store as a pd.Series indexed by date in the custom cache.
+    # The frontend passes a ticker like "custom_1234567890" — it must also send
+    # that same string in the request so we know what key to store it under.
+    # We use the original filename (sanitised) as the key and return it to the frontend.
+    safe_name = "custom_" + "".join(c for c in (file.filename or "upload") if c.isalnum() or c in "_-")
+    series = pd.Series(df["close"].values, index=pd.to_datetime(df["date"]))
+    custom_price_cache[safe_name] = series
+
     return {
         "valid": True,
+        "ticker": safe_name,       # frontend must use this exact string as the asset ticker
         "rows": len(df),
         "date_col_found": date_col,
         "price_col_found": price_col,
