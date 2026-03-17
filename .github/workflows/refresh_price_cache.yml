@@ -2,7 +2,7 @@ name: Refresh Price Cache
 
 on:
   schedule:
-    - cron: "0 2 * * *"   # 2:00 AM UTC daily (after US market close)
+    - cron: "20 22 * * 1-5"
   workflow_dispatch:        # also allows manual trigger from GitHub UI
 
 jobs:
