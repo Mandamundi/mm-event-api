@@ -148,7 +148,7 @@ def run_analysis(req: AnalysisRequest):
 async def validate_csv(file: UploadFile = File(...)):
     try:
         contents = await file.read()
-        df = pd.read_csv(io.BytesIO(contents), parse_dates=["date"])
+        df = pd.read_csv(io.BytesIO(contents))
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Could not parse CSV: {str(e)}")
 
