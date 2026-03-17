@@ -144,6 +144,7 @@ def run_analysis(req: AnalysisRequest):
 
     return response
 
+
 @app.post("/api/validate-csv")
 async def validate_csv(file: UploadFile = File(...)):
     try:
@@ -152,21 +153,73 @@ async def validate_csv(file: UploadFile = File(...)):
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Could not parse CSV: {str(e)}")
 
-    required_cols = {"date", "close"}
-    if not required_cols.issubset(set(df.columns.str.lower())):
+    # Drop fully empty columns (common in FRED/Yahoo exports with trailing commas)
+    df = df.dropna(axis=1, how="all")
+    df.columns = df.columns.str.strip()
+    cols_lower = [c.lower() for c in df.columns]
+
+    # Auto-detect date column
+    date_col = None
+    if "date" in cols_lower:
+        date_col = df.columns[cols_lower.index("date")]
+    else:
+        for col in df.columns:
+            try:
+                parsed = pd.to_datetime(df[col].dropna().head(5), infer_datetime_format=True)
+                if len(parsed) >= 3:
+                    date_col = col
+                    break
+            except Exception:
+                continue
+
+    if date_col is None:
         raise HTTPException(
             status_code=400,
-            detail=f"CSV must have columns: date, close. Found: {list(df.columns)}"
+            detail=f"Could not find a date column. Columns found: {list(df.columns)}"
         )
 
-    df.columns = df.columns.str.lower()
-    df = df[["date", "close"]].dropna()
-    df["date"] = pd.to_datetime(df["date"])
-    df = df.sort_values("date")
+    # Auto-detect price column: named aliases first, then first remaining numeric
+    price_col = None
+    price_aliases = {"close", "price", "value", "adj close", "adj_close", "adjusted_close"}
+    for col in df.columns:
+        if col.lower() in price_aliases and col != date_col:
+            price_col = col
+            break
+    if price_col is None:
+        for col in df.columns:
+            if col == date_col:
+                continue
+            try:
+                pd.to_numeric(df[col].dropna().head(5))
+                price_col = col
+                break
+            except Exception:
+                continue
+
+    if price_col is None:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Could not find a price/value column. Columns found: {list(df.columns)}"
+        )
+
+    # Build clean dataframe
+    df = df[[date_col, price_col]].copy()
+    df.columns = ["date", "close"]
+    df["date"]  = pd.to_datetime(df["date"], infer_datetime_format=True, errors="coerce")
+    df["close"] = pd.to_numeric(df["close"], errors="coerce")
+    df = df.dropna().sort_values("date").reset_index(drop=True)
+
+    if len(df) < 10:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Not enough valid rows after parsing (got {len(df)}, need at least 10)"
+        )
 
     return {
         "valid": True,
         "rows": len(df),
+        "date_col_found": date_col,
+        "price_col_found": price_col,
         "date_range": {
             "start": str(df["date"].min().date()),
             "end":   str(df["date"].max().date()),
@@ -175,6 +228,7 @@ async def validate_csv(file: UploadFile = File(...)):
             date=df["date"].dt.strftime("%Y-%m-%d")
         ).to_dict(orient="records"),
     }
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
