@@ -26,7 +26,7 @@
         { "id": "russia_ukraine", "label": "Russia-Ukraine War", "start_date": "2022-02-24", "end_date": null, "notes": "Full-scale Russian invasion / Ongoing" },
         { "id": "israel_hamas", "label": "Israel-Hamas War", "start_date": "2023-10-07", "end_date": null, "notes": "Hamas attack on Israel / Ongoing" },
         { "id": "israel_iran_2024", "label": "Israel-Iran Direct Strike", "start_date": "2024-04-13", "end_date": null, "notes": "Iran launches first-ever direct drone/missile strike on Israel / No formal end" },
-        { "id": "us_iran_2026", "label": "Operation Epic Fury", "start_date": "2024-02-28", "end_date": null, "notes": "Joint strikes begin; Supreme Leader Khamenei killed in opening wave; targets include nuclear sites, missiles, leadership; Iran retaliates with missiles/drones across region; ongoing as of March 2026." }
+        { "id": "us_iran_2026", "label": "Operation Epic Fury", "start_date": "2026-02-28", "end_date": null, "notes": "Joint strikes begin; Supreme Leader Khamenei killed in opening wave; targets include nuclear sites, missiles, leadership; Iran retaliates with missiles/drones across region; ongoing as of March 2026." }
       ]
     },
     {
@@ -45,17 +45,66 @@
         },
         {
           "id": "us_israel_strikes_iran_2026",
-          "label": "Operation Epic Fury",
+          "label": "Operation Epic Fury — Launch",
           "start_date": "2026-02-28",
           "end_date": null,
-          "notes": "Joint strikes begin; Supreme Leader Khamenei killed in opening wave; targets include nuclear sites, missiles, leadership; Iran retaliates with missiles/drones across region; ongoing as of March 2026."
+          "notes": "Joint US-Israel strikes begin at ~09:45 IRST; over 1,000 targets hit in first 24 hours; initial phase focuses on command/control, naval forces, ballistic missile sites, and intelligence; air superiority achieved within days; 6,000+ combat sorties and 100+ Iranian naval vessels destroyed as of mid-March. Ongoing as of March 2026."
+        },
+        {
+          "id": "khamenei_killed_2026",
+          "label": "Supreme Leader Khamenei Killed",
+          "start_date": "2026-02-28",
+          "end_date": "2026-02-28",
+          "notes": "Ali Khamenei killed in opening wave of Operation Epic Fury at his Tehran compound; single largest discrete geopolitical shock of the conflict; oil prices surged ~9% at open on March 2; triggered Iran's mass retaliatory posture and Hormuz closure threats. Primary catalyst for cross-asset volatility spike."
+        },
+        {
+          "id": "iran_gulf_mass_strikes_2026",
+          "label": "Iran Mass Retaliation — Gulf States",
+          "start_date": "2026-03-01",
+          "end_date": null,
+          "notes": "Iran launches 400+ ballistic missiles and ~1,000 drones at Gulf Arab states and US bases; targets include Dubai airport, Manama, Doha, Riyadh, Kuwait airport, and US bases in Kuwait (4 US soldiers killed); UAE reports 3 dead/78 injured; Saudi Arabia's eastern region and Riyadh struck; Qatar reports 16 injuries; marks transformation of Gulf airspace into conflict zone and elevated GCC sovereign risk premium."
+        },
+        {
+          "id": "hormuz_closure_2026",
+          "label": "Strait of Hormuz Effective Closure",
+          "start_date": "2026-03-02",
+          "end_date": null,
+          "notes": "IRGC officially declares Strait of Hormuz closed; threatens to fire on any vessel transiting; tanker traffic drops ~70% within hours then to near-zero; 150+ ships anchor outside strait; ~20% of global daily oil supply and significant LNG volumes disrupted; 21 confirmed attacks on merchant ships by March 12. Key inflection for oil/LNG price divergence vs. equities."
+        },
+        {
+          "id": "qatar_lng_halt_2026",
+          "label": "QatarEnergy LNG Halt & Force Majeure",
+          "start_date": "2026-03-02",
+          "end_date": null,
+          "notes": "Iranian drone strikes hit Ras Laffan Industrial City and Mesaieed on March 2; QatarEnergy halts LNG production; force majeure declared March 4; removes ~80 Mtpa (~19% of global LNG supply) from market; European and Asian gas prices surge; North Field East expansion (32 Mtpa, due Nov 2026) at risk of multi-year delay per Wood Mackenzie."
+        },
+        {
+          "id": "opec_plus_boost_march_2026",
+          "label": "OPEC+ Emergency Output Increase",
+          "start_date": "2026-03-01",
+          "end_date": null,
+          "notes": "OPEC+ agrees to add 206,000 bpd in April (accelerated vs. prior 137k bpd cadence); Saudi Arabia, Iraq, Kuwait, UAE had already accelerated exports pre-decision; analysts note limited spare capacity (~1 MMbpd withheld); sustained export growth contingent on Hormuz reopening. Relevant as partial demand-side offset signal for oil price modeling."
+        },
+        {
+          "id": "brent_100_break_2026",
+          "label": "Brent Crude Breaks $100",
+          "start_date": "2026-03-09",
+          "end_date": null,
+          "notes": "Brent surges past $100/barrel at market open — first time since July 2022; WTI up ~22% on the week; previous week saw Brent +27%, WTI +35.6%; Dow drops ~900 points intraday before rebounding +239; marks peak cross-asset divergence between energy and equities in the conflict cycle. Key benchmark date for performance analysis."
+        },
+        {
+          "id": "mojtaba_successor_2026",
+          "label": "Mojtaba Khamenei Named Supreme Leader",
+          "start_date": "2026-03-09",
+          "end_date": null,
+          "notes": "Assembly of Experts announces Mojtaba Khamenei (son of Ali) as new Supreme Leader in unanimous vote; process ran March 3–8; Israel had warned any successor would be targeted; Iran UN envoy on March 12 states Iran 'not going to close Strait of Hormuz,' signaling potential de-escalation rhetoric. Political succession event relevant to regime-continuity risk premium."
         },
         {
           "id": "iea_emergency_release_2026",
           "label": "IEA Record Emergency Oil Release",
           "start_date": "2026-03-11",
           "end_date": null,
-          "notes": "Unprecedented 400M barrels coordinated release (largest ever) to counter supply shock; US contributes 172M from SPR; aimed at cooling prices amid Hormuz disruptions."
+          "notes": "Unprecedented 400M barrel coordinated IEA release (largest ever) to counter supply shock; US contributes 172M from SPR; aimed at cooling prices amid Hormuz disruptions."
         },
         {
           "id": "us_spr_release_2026",
@@ -63,6 +112,20 @@
           "start_date": "2026-03-11",
           "end_date": null,
           "notes": "US authorizes 172M barrels from Strategic Petroleum Reserve (part of IEA effort); begins next week; ~120-day delivery; intended to offset Gulf supply losses and stabilize energy markets."
+        },
+        {
+          "id": "us_kharg_island_hormuz_secured_2026",
+          "label": "Kharg Island Strikes / Hormuz Secured",
+          "start_date": "2026-03-13",
+          "end_date": null,
+          "notes": "US strikes 90+ Iranian military targets on Kharg Island (Iran's primary oil export terminal) in largest single-day precision campaign of Epic Fury; B-2 stealth bombers deployed; naval mine storage and missile bunkers destroyed; CENTCOM Admiral Brad Cooper declares US has 'secured the Strait of Hormuz as a transit corridor'; oil installations deliberately spared. Key de-escalation signal for oil supply restoration thesis."
+        },
+        {
+          "id": "ras_laffan_extensive_damage_2026",
+          "label": "Ras Laffan Extensive Damage Strike",
+          "start_date": "2026-03-18",
+          "end_date": null,
+          "notes": "Iranian missile strikes cause 'extensive damage' to Pearl GTL facility and multiple LNG trains at Ras Laffan; Wood Mackenzie revises disruption outlook beyond initial 2-month estimate; two of Qatar's 14 LNG trains damaged; global LNG supply outlook reshaped through 2027–2028; European and Asian gas prices surge anew. Re-escalation signal after Hormuz partial-reopening optimism."
         }
       ]
     },

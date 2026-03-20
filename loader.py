@@ -12,7 +12,7 @@ DEFAULT_ASSETS = [
     {"ticker": "^DJI",     "label": "Dow Jones",                 "category": "Equity Index"},
     {"ticker": "^RUT",     "label": "Russell 2000",              "category": "Equity Index"},
     {"ticker": "^N225",    "label": "Nikkei 225",                "category": "Equity Index"},
-    # ^KS11 removed — not in cache
+    {"ticker": "^N225",    "label": "Nikkei 225",                "category": "Equity Index"},
     # Sector ETFs
     {"ticker": "XLE",      "label": "Energy",                    "category": "Sector ETF"},
     {"ticker": "XLF",      "label": "Financials",                "category": "Sector ETF"},
