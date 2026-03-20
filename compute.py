@@ -79,10 +79,11 @@ def compute_event_window(
 
     t0_idx    = trading_days[future_mask][0]
     pos       = trading_days.get_loc(t0_idx)
-    start_pos = pos - pre_days
-    end_pos   = pos + post_days
+    start_pos = max(pos - pre_days, 0)          # clamp to series start
+    end_pos   = min(pos + post_days, len(trading_days) - 1)  # clamp to series end
 
-    if start_pos < 0 or end_pos >= len(trading_days):
+    # Require at least the anchor point itself
+    if start_pos > pos:
         return None
 
     window       = price_series.iloc[start_pos : end_pos + 1]
@@ -91,13 +92,16 @@ def compute_event_window(
     if anchor_price == 0 or pd.isna(anchor_price):
         return None
 
+    # t offset is relative to the actual start_pos, not always -pre_days
+    actual_pre = pos - start_pos   # may be < pre_days if event is near series start
+
     returns = []
     for i, (dt, price) in enumerate(window.items()):
-        t   = i - pre_days
+        t   = i - actual_pre
         pct = (price / anchor_price - 1) * 100
         returns.append({"t": t, "pct_return": round(pct, 4), "date": str(dt.date())})
 
-    post_window = window.iloc[pre_days:]
+    post_window = window.iloc[actual_pre:]
 
     def horizon_return(n_days: int) -> Optional[float]:
         if n_days >= len(post_window):
