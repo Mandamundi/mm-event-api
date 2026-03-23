@@ -29,6 +29,8 @@ TICKERS = [
     "^DJI",    # Dow Jones
     "^RUT",    # Russell 2000
     "^N225",   # Nikkei 225
+    "^KS11", # KOSPI
+    "^BSESN", # SENSEX
     "^FTSE",   # FTSE 100
     "^VIX",    # VIX
     # Sector ETFs
