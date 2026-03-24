@@ -164,7 +164,7 @@ DEFAULT_ASSETS = [
     # ── Stocks: Fintech & Payments (4) ─────────────────────────────────────
     {"ticker": "PYPL",       "label": "PayPal",                       "category": "Stock"},
     {"ticker": "COIN",       "label": "Coinbase",                     "category": "Stock"},
-    {"ticker": "SQ",         "label": "Block (Square)",               "category": "Stock"},
+    {"ticker": "XYZ",         "label": "Block (Square)",               "category": "Stock"},
     {"ticker": "HOOD",       "label": "Robinhood",                    "category": "Stock"},
 
     # ── Stocks: Healthcare & Pharma (8) ───────────────────────────────────
