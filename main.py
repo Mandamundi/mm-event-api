@@ -2,6 +2,7 @@ from fastapi import FastAPI, HTTPException, UploadFile, File
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Optional
+from pathlib import Path
 import uvicorn
 import os
 import io
@@ -39,10 +40,12 @@ def get_assets():
         grouped.setdefault(asset["category"], []).append(asset)
     return {"assets": loader.DEFAULT_ASSETS, "grouped": grouped}
 
+CACHE_DIR = Path(__file__).parent / "price_cache"
+
 @app.get("/api/prices/{ticker}")
 def get_prices(ticker: str, start: Optional[str] = None, end: Optional[str] = None):
     safe_name = ticker.replace("/", "_").replace("^", "_").replace("=", "_")
-    path = Path("price_cache") / f"{safe_name}.parquet"
+    path = CACHE_DIR / f"{safe_name}.parquet"
     if not path.exists():
         raise HTTPException(status_code=404, detail=f"No cached data for {ticker}")
     df = pd.read_parquet(path)
