@@ -39,6 +39,20 @@ def get_assets():
         grouped.setdefault(asset["category"], []).append(asset)
     return {"assets": loader.DEFAULT_ASSETS, "grouped": grouped}
 
+@app.get("/api/prices/{ticker}")
+def get_prices(ticker: str, start: Optional[str] = None, end: Optional[str] = None):
+    safe_name = ticker.replace("/", "_").replace("^", "_").replace("=", "_")
+    path = Path("price_cache") / f"{safe_name}.parquet"
+    if not path.exists():
+        raise HTTPException(status_code=404, detail=f"No cached data for {ticker}")
+    df = pd.read_parquet(path)
+    if start:
+        df = df[df.index >= pd.to_datetime(start)]
+    if end:
+        df = df[df.index <= pd.to_datetime(end)]
+    df.index = df.index.strftime("%Y-%m-%d")
+    return {"ticker": ticker, "prices": df["Close"].to_dict()}
+
 
 class AnalysisRequest(BaseModel):
     event_ids: list[str]
