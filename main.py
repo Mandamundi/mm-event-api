@@ -57,6 +57,13 @@ def get_prices(ticker: str, start: Optional[str] = None, end: Optional[str] = No
     return {"ticker": ticker, "prices": df["Close"].to_dict()}
 
 
+class CustomEventData(BaseModel):
+    id: str
+    label: str
+    start_date: str
+    end_date: Optional[str] = None
+    notes: Optional[str] = ''
+
 class AnalysisRequest(BaseModel):
     event_ids: list[str]
     ticker: str
@@ -65,6 +72,7 @@ class AnalysisRequest(BaseModel):
     post_days: int = 60
     benchmark_ticker: Optional[str] = None
     second_ticker: Optional[str] = None
+    custom_events: Optional[list[CustomEventData]] = None  # ← add this
 
 
 @app.post("/api/analysis")
@@ -78,10 +86,16 @@ def run_analysis(req: AnalysisRequest):
     if req.pre_days > 252 or req.post_days > 504:
         raise HTTPException(status_code=400, detail="Window too large")
 
+    # Build a lookup from any custom events passed in the request
+    custom_lookup = {}
+    if req.custom_events:
+        for ce in req.custom_events:
+            custom_lookup[ce.id] = ce.dict()
+
     events = []
     skipped = []
     for eid in req.event_ids:
-        ev = loader.get_event_by_id(eid)
+        ev = custom_lookup.get(eid) or loader.get_event_by_id(eid)
         if ev is None:
             raise HTTPException(status_code=404, detail=f"Event ID not found: {eid}")
         resolved_date = compute.resolve_event_date(ev, req.phase)
@@ -94,18 +108,14 @@ def run_analysis(req: AnalysisRequest):
 
     if not events:
         raise HTTPException(status_code=400, detail="No valid events after phase resolution")
-
     start_date, end_date = compute.build_date_range(events, req.pre_days, req.post_days)
-
     tickers_needed = {req.ticker}
     if req.benchmark_ticker:
         tickers_needed.add(req.benchmark_ticker)
     if req.second_ticker:
         tickers_needed.add(req.second_ticker)
-
     price_data = {}
     for ticker in tickers_needed:
-        # Check in-memory custom cache first before hitting yfinance
         if ticker in custom_price_cache:
             price_data[ticker] = custom_price_cache[ticker]
         else:
